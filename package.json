@@ -1,0 +1,19 @@
+{
+  "name": "mern-news-app",
+  "version": "1.0.0",
+  "description": "A News App Build on Top on Node.JS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iam-jmismail/mern-news-app.git"
+  },
+  "author": "Mohamed Ismail J",
+  "license": "MIT ",
+  "bugs": {
+    "url": "https://github.com/iam-jmismail/mern-news-app/issues"
+  },
+  "homepage": "https://github.com/iam-jmismail/mern-news-app#readme"
+}

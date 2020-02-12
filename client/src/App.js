@@ -2,6 +2,12 @@ import React, { Component } from "react";
 
 export default class App extends Component {
   render() {
-    return <div>Hello World</div>;
+    return (
+      <div>
+        <i className='fas fa-user'>
+          <div className='container'>Hello world</div>
+        </i>
+      </div>
+    );
   }
 }

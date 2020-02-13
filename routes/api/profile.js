@@ -68,10 +68,26 @@ router.get("/me", auth, async (req, res) => {
     const profile = await Profile.findOne({
       user: req.user.id
     }).populate("users", ["username", "email"]);
-    if (profile) {
-      return res.status(400).json(profile);
+    if (!profile) {
+      return res.status(400).json({ msg: "No Profile for this user " });
     }
-    res.send("No Profile");
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @GET - api/profile/
+// @Desc - Get all Profiles
+// @Access -  Public
+router.get("/", async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate("users", [
+      "username",
+      "email"
+    ]);
+    res.send(profiles);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

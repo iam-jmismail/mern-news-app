@@ -66,7 +66,8 @@ router.post(
 // @Desc - Get the Logged User
 // @Access - Private
 router.get("/", auth, async (req, res) => {
-  res.send("User Verified");
+  const user = await User.findById(req.user.id).select("-password");
+  if (user) return res.status(200).json(user);
 });
 
 module.exports = router;

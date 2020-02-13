@@ -15,7 +15,7 @@ app.use("/api/auth", require("./routes/api/auth"));
 // Connect to MongoDB
 mongoose.connect(
   process.env.MongoURI,
-  { useNewUrlParser: true, useUnifiedTopology: true },
+  { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false },
   () => console.log("Connected to MongoDB")
 );
 

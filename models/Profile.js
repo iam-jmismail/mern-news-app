@@ -34,8 +34,7 @@ const ProfileSchema = new Schema({
         required: true
       },
       institution: {
-        type: String,
-        required: true
+        type: String
       },
       from: {
         type: Date,

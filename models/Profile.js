@@ -12,6 +12,14 @@ const ProfileSchema = new Schema({
   state: {
     type: String
   },
+  likes: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "users"
+      }
+    }
+  ],
   interests: {
     type: [String]
   },

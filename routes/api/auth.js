@@ -45,15 +45,10 @@ router.post(
       //  Generate Tokens
 
       if (isMatch) {
-        jwt.sign(
-          payload,
-          process.env.JWTSecret,
-          { expiresIn: 36000 },
-          (err, token) => {
-            if (err) throw err;
-            res.json({ token });
-          }
-        );
+        jwt.sign(payload, process.env.JWTSecret, (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        });
       }
     } catch (err) {
       console.error(err.message);

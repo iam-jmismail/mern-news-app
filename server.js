@@ -9,7 +9,7 @@ app.use(express.json());
 // Routes
 app.use("/api/user", require("./routes/api/user"));
 app.use("/api/profile", require("./routes/api/profile"));
-app.use("/api/post", require("./routes/api/post"));
+app.use("/api/favorite", require("./routes/api/favorite"));
 app.use("/api/auth", require("./routes/api/auth"));
 
 // Connect to MongoDB

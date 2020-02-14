@@ -33,7 +33,7 @@ const ProfileSchema = new Schema({
         type: String,
         required: true
       },
-      location: {
+      institution: {
         type: String,
         required: true
       },

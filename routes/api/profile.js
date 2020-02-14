@@ -106,13 +106,13 @@ router.post(
       check("title", "Title is Required")
         .not()
         .isEmpty(),
-      check("location", "Location is Required")
+      check("institution", "Institution name is Required")
         .not()
         .isEmpty()
     ]
   ],
   async (req, res) => {
-    const { title, location, from, to } = req.body;
+    const { title, institution, from, to } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -121,7 +121,7 @@ router.post(
       const profile = await Profile.findOne({ user: req.user.id });
       const education = {
         title,
-        location,
+        institution,
         from,
         to
       };

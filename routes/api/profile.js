@@ -12,13 +12,9 @@ router.post(
   [
     auth,
     [
-      check("city", "Your City is required for our service")
-        .not()
-        .isEmpty(),
-      check("state", "Your State is required for our service")
-        .not()
-        .isEmpty()
-    ]
+      check("city", "Your City is required for our service").not().isEmpty(),
+      check("state", "Your State is required for our service").not().isEmpty(),
+    ],
   ],
   async (req, res) => {
     const { city, state, interests, hobbies } = req.body;
@@ -27,16 +23,15 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
     const profileObject = {};
     profileObject.user = req.user.id;
     if (city) profileObject.city = city;
     if (state) profileObject.state = state;
     if (interests) {
-      profileObject.interests = interests.split(",").map(item => item.trim());
+      profileObject.interests = interests.split(",").map((item) => item.trim());
     }
     if (hobbies) {
-      profileObject.hobbies = hobbies.split(",").map(item => item.trim());
+      profileObject.hobbies = hobbies.split(",").map((item) => item.trim());
     }
 
     try {
@@ -66,7 +61,7 @@ router.post(
 router.get("/me", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.user.id
+      user: req.user.id,
     }).populate("users", ["username", "email"]);
     if (!profile) {
       return res.status(400).json({ msg: "No Profile for this user " });
@@ -85,7 +80,7 @@ router.get("/", async (req, res) => {
   try {
     const profiles = await Profile.find().populate("users", [
       "username",
-      "email"
+      "email",
     ]);
     res.send(profiles);
   } catch (err) {
@@ -103,13 +98,9 @@ router.post(
   [
     auth,
     [
-      check("title", "Title is Required")
-        .not()
-        .isEmpty(),
-      check("institution", "Institution name is Required")
-        .not()
-        .isEmpty()
-    ]
+      check("title", "Title is Required").not().isEmpty(),
+      check("institution", "Institution name is Required").not().isEmpty(),
+    ],
   ],
   async (req, res) => {
     const { title, institution, from, to } = req.body;
@@ -123,7 +114,7 @@ router.post(
         title,
         institution,
         from,
-        to
+        to,
       };
       profile.education.unshift(education);
       await profile.save();
@@ -144,7 +135,7 @@ router.delete("/education/:id", auth, async (req, res) => {
     const profile = await Profile.findOne({ user: req.user.id });
 
     const removeIndex = profile.education
-      .map(item => item.id)
+      .map((item) => item.id)
       .indexOf(req.params.id);
 
     profile.education.splice(removeIndex);

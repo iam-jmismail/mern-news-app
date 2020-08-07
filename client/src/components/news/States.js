@@ -12,26 +12,26 @@ export default function States() {
             <div className='col-md-6'>
               <div className='list-group'>
                 <div className='list-group-item my-1'>
-                  <a href='#'>Kerala</a>
+                  <a href='/kerala'>Kerala</a>
                 </div>
                 <div className='list-group-item my-1'>
-                  <a href='#'>Tamil Nadu</a>
+                  <a href='/tamilnadu'>Tamil Nadu</a>
                 </div>
                 <div className='list-group-item my-1'>
-                  <a href='#'>Andhra Pradesh</a>
+                  <a href='/telegana'>Telangana</a>
                 </div>
               </div>
             </div>
             <div className='col-md-6'>
               <div className='list-group'>
                 <div className='list-group-item my-1'>
-                  <a href='#'>Goa</a>
+                  <a href='/andhrapradesh'>Andhra Pradesh</a>
                 </div>
                 <div className='list-group-item my-1'>
-                  <a href='#'>Odhisa </a>
+                  <a href='/maharastra'>Maharastra </a>
                 </div>
                 <div className='list-group-item my-1'>
-                  <a href='#'>Maharastra</a>
+                  <a href='/karnataka'>Karnataka</a>
                 </div>
               </div>
             </div>

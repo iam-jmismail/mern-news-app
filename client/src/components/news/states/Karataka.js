@@ -1,18 +1,18 @@
 import React, { Fragment, useState, useEffect } from "react";
 
 // Helpers
-import populate from "../../helpers/populate";
+import populate from "../../../helpers/populate";
 
 // Config
-import config from "../../config";
+import config from "../../../config";
 
 // Components
-import NewsContent from "./NewsContent";
-import Spinner from "../ui/Spinner";
-import PaginationBottom from "./PaginationBottom";
-import PaginationTop from "./PaginationTop";
+import NewsContent from "../NewsContent";
+import Spinner from "../../ui/Spinner";
+import PaginationBottom from "../PaginationBottom";
+import PaginationTop from "../PaginationTop";
 
-export default function National() {
+export default function Karnataka() {
   const [news, setNews] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setcurrentPage] = useState(1);
@@ -23,7 +23,7 @@ export default function National() {
   useEffect(() => {
     const getData = async () => {
       const data = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=${config.country}&apiKey=${config.API_KEY}&page=${currentPage}`
+        `https://newsapi.org/v2/everything?q=Karnataka&apiKey=${config.API_KEY}`
       );
       const res = await data.json();
       setNews(res.articles);
@@ -69,10 +69,9 @@ export default function National() {
       <section className='section-national py-4'>
         <div className='container'>
           <h3 className='text-dark'>
-            <i className='fas fa-globe-asia mr-2'></i> National Headlines{" "}
+            <i className='fas fa-globe-asia mr-2'></i> Karnataka
             <small className='text-secondary'>
-              {" "}
-              Page ({currentPage}/{totalPages}){" "}
+              Page ({currentPage}/{totalPages})
             </small>
           </h3>
 

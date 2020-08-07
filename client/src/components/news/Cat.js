@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-
+import { Link } from "react-router-dom";
 export default function Cat() {
   return (
     <Fragment>
@@ -10,86 +10,87 @@ export default function Cat() {
           </h3>
           <div class='row text-center'>
             <div class='col-md-3 mb-1'>
-              <a href='index.html'>
+              <Link to='/business'>
                 <div class='card'>
                   <div class='card-body'>
                     <i class='fas fa-rupee-sign'></i>
                   </div>
                   <div class='card-footer'>Buisness</div>
                 </div>
-              </a>
+              </Link>
             </div>
+
             <div class='col-md-3 mb-1'>
-              <a href='index.html'>
+              <Link to='/entertainment'>
                 <div class='card'>
                   <div class='card-body'>
                     <i class='fas fa-video'></i>
                   </div>
                   <div class='card-footer'>Entertainment</div>
                 </div>
-              </a>
+              </Link>
             </div>
             <div class='col-md-3 mb-1'>
-              <a href='index.html'>
+              <Link to='/general'>
                 <div class='card'>
                   <div class='card-body'>
                     <i class='fas fa-hourglass-half'></i>
                   </div>
                   <div class='card-footer'>General</div>
                 </div>
-              </a>
+              </Link>
             </div>
             <div class='col-md-3 mb-1'>
-              <a href='index.html'>
+              <Link to='/health'>
                 <div class='card'>
                   <div class='card-body'>
                     <i class='fas fa-first-aid'></i>
                   </div>
                   <div class='card-footer'>Health</div>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
           <div class='row text-center mt-4'>
             <div class='col-md-3 mb-1'>
-              <a href='index.html'>
+              <Link to='/science'>
                 <div class='card'>
                   <div class='card-body'>
                     <i class='fas fa-vials'></i>
                   </div>
                   <div class='card-footer'>Science</div>
                 </div>
-              </a>
+              </Link>
             </div>
             <div class='col-md-3 mb-1'>
-              <a href='index.html'>
+              <Link to='/sports'>
                 <div class='card'>
                   <div class='card-body'>
                     <i class='fas fa-futbol'></i>
                   </div>
                   <div class='card-footer'>Sports</div>
                 </div>
-              </a>
+              </Link>
             </div>
             <div class='col-md-3 mb-1'>
-              <a href='index.html'>
+              <Link to='/technology'>
                 <div class='card'>
                   <div class='card-body'>
                     <i class='fas fa-microchip'></i>
                   </div>
                   <div class='card-footer'>Technology</div>
                 </div>
-              </a>
+              </Link>
             </div>
             <div class='col-md-3 mb-1'>
-              <a href='national.html'>
+              <Link to='/nation'>
                 <div class='card'>
                   <div class='card-body'>
                     <i class='fas fa-globe-asia'></i>
                   </div>
                   <div class='card-footer'>National</div>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

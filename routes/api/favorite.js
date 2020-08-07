@@ -9,7 +9,7 @@ const Favorite = require("../../models/Favorite");
 
 router.get("/", auth, async (req, res) => {
   try {
-    const favorites = await Favorite.find({ user: req.user.id });
+    const favorites = await Favorite.find({ user: req.user._id });
     res.json(favorites);
   } catch (err) {
     console.error(err.message);
@@ -21,44 +21,26 @@ router.get("/", auth, async (req, res) => {
 // @Desc - Add News to Favorite
 // @Access -  Private
 
-router.post(
-  "/",
-  [
-    auth,
-    [
-      check("title", "Title is Required")
-        .not()
-        .isEmpty(),
-      check("body", "Body is Required")
-        .not()
-        .isEmpty()
-    ]
-  ],
-  async (req, res) => {
-    const { title, body, source, date, img } = req.body;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+router.post("/", auth, async (req, res) => {
+  const { title, description, content, publishedAt, source, url } = req.body;
+  const favorite = new Favorite({
+    user: req.user._id,
+    title,
+    description,
+    content,
+    publishedAt,
+    source,
+    url,
+  });
 
-    const favorite = new Favorite({
-      user: req.user.id,
-      title,
-      body,
-      img,
-      source,
-      date
-    });
-
-    try {
-      await favorite.save();
-      res.send(favorite);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server Error");
-    }
+  try {
+    await favorite.save();
+    res.send(favorite);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
-);
+});
 
 // @DELETE - api/favorite/:id
 // @Desc - Delete a News from  Favorite

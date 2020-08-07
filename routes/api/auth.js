@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { check, validationResult } = require("express-validator");
 const User = require("../../models/User");
+const Profile = require("../../models/Profile");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middlewares/auth");
@@ -10,11 +11,12 @@ require("dotenv/config");
 // @POST - api/auth
 // @Desc - Existing User to Login
 // @Access - Public
+
 router.post(
   "/",
   [
     check("email", "Email cannot be empty").isEmail(),
-    check("password", "Password cannot be Empty").isLength({ min: 6 })
+    check("password", "Password cannot be Empty").isLength({ min: 6 }),
   ],
   async (req, res) => {
     const { email, password } = req.body;
@@ -32,23 +34,26 @@ router.post(
         return res
           .status(400)
           .json({ errors: [{ msg: "No Such User exists" }] });
-      }
+      } else {
+        // check the Password
+        const isMatch = await bcrypt.compare(password, user.password);
 
-      // check the Password
+        const payload = {
+          id: user._id,
+        };
 
-      const isMatch = await bcrypt.compare(password, user.password);
+        //  Generate Tokens
 
-      const payload = {
-        id: user.id
-      };
-
-      //  Generate Tokens
-
-      if (isMatch) {
-        jwt.sign(payload, process.env.JWTSecret, (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        });
+        if (isMatch) {
+          jwt.sign(payload, process.env.JWTSecret, (err, token) => {
+            if (err) throw err;
+            res.status(200).json({ token });
+          });
+        } else {
+          return res
+            .status(400)
+            .json({ errors: [{ msg: "Incorrect password" }] });
+        }
       }
     } catch (err) {
       console.error(err.message);
@@ -62,7 +67,13 @@ router.post(
 // @Access - Private
 router.get("/", auth, async (req, res) => {
   const user = await User.findById(req.user.id).select("-password");
-  if (user) return res.status(200).json(user);
+  const profile = await Profile.findOne({ user: req.user.id });
+
+  if (user)
+    return res.status(200).json({
+      user,
+      profile,
+    });
 });
 
 module.exports = router;

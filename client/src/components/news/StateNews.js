@@ -12,18 +12,22 @@ import Spinner from "../ui/Spinner";
 import PaginationBottom from "./PaginationBottom";
 import PaginationTop from "./PaginationTop";
 
-export default function National() {
+export default function StatesNews(props) {
   const [news, setNews] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setcurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [stateName, setStateName] = useState("");
 
   let totalPages, pages;
 
   useEffect(() => {
     const getData = async () => {
       const data = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=${config.country}&apiKey=${config.API_KEY}&page=${currentPage}`
+        // `https://newsapi.org/v2/top-headlines?country=${config.country}&apiKey=${config.API_KEY}&page=${currentPage}&q=${stateName}`
+        `https://newsapi.org/v2/everything?q=${
+          stateName ? stateName : "India"
+        }&apiKey=${config.API_KEY}`
       );
       const res = await data.json();
       setNews(res.articles);
@@ -33,7 +37,8 @@ export default function National() {
       }
     };
     getData();
-  }, [currentPage]);
+    setStateName(props.match.params.state_name);
+  }, [currentPage, stateName]);
 
   // Pagination
 
@@ -69,7 +74,7 @@ export default function National() {
       <section className='section-national py-4'>
         <div className='container'>
           <h3 className='text-dark'>
-            <i className='fas fa-globe-asia mr-2'></i> National Headlines{" "}
+            <i className='fas fa-globe-asia mr-2'></i> State News - {stateName}
             <small className='text-secondary'>
               {" "}
               Page ({currentPage}/{totalPages}){" "}

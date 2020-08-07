@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { check, validationResult } = require("express-validator");
 const User = require("../../models/User");
+const Profile = require("../../models/Profile");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv/config");
@@ -13,10 +14,13 @@ router.post(
   [
     check("email", "Email cannot be empty").isEmail(),
     check("password", "Password cannot be Empty").isLength({ min: 6 }),
-    check("username", "Username is Required").isLength({ min: 6 })
+    check("fname", "Firstname is Required").notEmpty(),
+    check("lname", "Lastname is Required").notEmpty(),
+    check("city", "City is Required").notEmpty(),
+    check("country", "Country is Required").notEmpty()
   ],
   async (req, res) => {
-    const { email, password, username } = req.body;
+    const { fname, lname, email, password, city, country } = req.body;
     const errors = validationResult(req);
     // Validation
     if (!errors.isEmpty()) {
@@ -34,35 +38,42 @@ router.post(
       }
 
       user = new User({
-        username,
-        email,
-        password
+        email
       });
-
-      // Apply Gravatar for the User
-
-      // Hash the Password
 
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
 
       // Save the User to Database
-
       await user.save();
 
-      // Return the Generated Token
+      // Save User Profile 
+      const profile = new Profile({
+        user: user._id,
+        firstName: fname,
+        lastName: lname,
+        city,
+        country
+      })
+
+
+      await profile.save();
+
       const payload = {
-        id: user.id
+        id: user._id
       };
+
       jwt.sign(
         payload,
         process.env.JWTSecret,
         { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.status(200).json({ token });
         }
       );
+
+
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error ");

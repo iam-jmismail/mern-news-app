@@ -4,24 +4,34 @@ const Schema = mongoose.Schema;
 const FavoriteSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "users"
-  },
-  img: {
-    type: String
+    ref: "users",
   },
   title: {
-    type: String
+    type: String,
+    required: true,
   },
-  body: {
-    type: String
+  description: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  publishedAt: {
+    type: Date,
   },
   source: {
-    type: String
+    type: String,
   },
-  date: {
+  url: {
+    type: String,
+    required: true,
+  },
+  savedAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Favorite", FavoriteSchema);

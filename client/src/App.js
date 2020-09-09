@@ -32,6 +32,7 @@ import Sports from "./components/news/categories/Sports";
 import Technology from "./components/news/categories/Technology";
 
 import Favorites from "./components/pages/Favorites";
+import Profile from "./components/auth/Profile";
 
 import NotFound from "./components/ui/NotFound";
 
@@ -74,6 +75,7 @@ class App extends Component {
 
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
+            <Route path='/profile' component={Profile} />
 
             <Route component={NotFound} />
           </Switch>

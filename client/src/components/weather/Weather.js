@@ -1,6 +1,27 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import config from "../../config";
 
 export default function States() {
+  const [weather, setWeather] = useState({});
+  const [weatherLoading, setWeatherLoading] = useState(false);
+
+  useEffect(() => {
+    getWeatherData();
+  }, []);
+
+  const getWeatherData = async () => {
+    setWeatherLoading(true);
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?zip=${config.defaultZip},${config.country}&appid=${config.WEATHER_API_KEY}`
+    );
+    const data = await res.json();
+    if (data) {
+      setWeather(data);
+      setWeatherLoading(false);
+    }
+  };
+
+  console.log(weather);
   return (
     <Fragment>
       <section className='weather py-4'>

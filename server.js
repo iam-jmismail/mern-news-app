@@ -6,6 +6,7 @@ require("dotenv/config");
 // Middlewares
 app.use(express.json());
 
+// Sample 
 
 // Routes
 app.use("/api/user", require("./routes/api/user"));

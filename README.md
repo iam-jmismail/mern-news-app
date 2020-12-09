@@ -1,4 +1,4 @@
-# MERN Stack News App
+# MERN Stack News
 
 This is a News Application made using MERN Stack ( MongoDB, ExpressJS, ReactJS, NodeJS) using JWT Authentication
 
